@@ -3,7 +3,7 @@ import sympy as sp
 x, y, z = sp.symbols("x y z")
 
 
-def aufgabe1():
+def aufgabe2a():
     f1 = 5 * x * y
     f2 = x**2 * y**2 + x + 2 * y
 
@@ -14,10 +14,10 @@ def aufgabe1():
     print(Df0)
 
 
-def aufgabe2():
+def aufgabe2b():
     f1 = sp.ln(x**2 + y**2) + z**2
     f2 = sp.exp(y**2 + z**2) + x**2
-    f3 = (1/(z**2 + x**2)) + y**2
+    f3 = (1 / (z**2 + x**2)) + y**2
 
     A = sp.Matrix([f1, f2, f3])
     Df = A.jacobian([x, y, z])
@@ -26,5 +26,5 @@ def aufgabe2():
     print(Df0)
 
 
-aufgabe1()
-aufgabe2()
+aufgabe2a()
+aufgabe2b()
