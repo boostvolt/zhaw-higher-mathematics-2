@@ -8,6 +8,19 @@ p2 = sp.plot_implicit(sp.Eq(f2, 0), (x, -2000, 2000), (y, -2000, 2000))
 p1.append(p2[0])
 p1.show()
 
-# Calculate 0 points
-#solutions = sp.solve(f1[] - f2)
-#solutions = sp.solve(Df0 @ sp.Matrix([d1, d2]) + f0, [d1, d2])
+# ------------------------------------------------------------------------------------------------------------------------
+
+x0_array = [sp.Matrix([-190, 70]),sp.Matrix([-1280, 1620]),sp.Matrix([740, 910]),sp.Matrix([250, 215])]
+epsilon = 1e-5
+f = sp.Matrix([f1,f2])
+Df = f.jacobian([x,y])
+
+# Newton-Raphson-Verfahren
+for (x0) in x0_array:
+    f0 = f.subs([(x,x0[0]),(y,x0[1])])
+    while(f0.norm(2) > epsilon):
+        Df0 = Df.subs([(x,x0[0]),(y,x0[1])])
+        delta = Df0.LUsolve(-f0)
+        x0 = x0 + delta
+        f0 = f.subs([(x,x0[0]),(y,x0[1])])
+    print(f"x0: {x0.evalf()}")
