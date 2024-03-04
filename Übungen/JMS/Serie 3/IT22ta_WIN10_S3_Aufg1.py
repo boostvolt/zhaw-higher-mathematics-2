@@ -1,6 +1,7 @@
-from sympy import sympify, diff, Matrix, symbols, sqrt
+from sympy import Matrix, symbols, sympify
 
 x1, x2 = symbols("x1 x2")
+
 
 def newtonverfahren_anzahl_iterationen(matrix, x_0, iterationen):
     x_prev = x_0.copy()
@@ -13,11 +14,14 @@ def newtonverfahren_anzahl_iterationen(matrix, x_0, iterationen):
         x_0 = {key: x_0[key] + delta[i] for i, key in enumerate(x_0)}
 
         f_norm = Matrix([val for val in matrix.subs(x_0)]).norm()
-        x_norm = Matrix([x_0[key] - x_prev[key] for key in x_0.values()]).norm()
+        x_norm = Matrix([x_0[key] - x_prev[key] for key in x_0.keys()]).norm()
 
-        print(f"Iteration {i+1}: x = {x_0}, ||f(x^(k))|| = {f_norm}, ||x(k) - x(k-1)|| = {x_norm}")
+        print(
+            f"Iteration {i+1}: x = {x_0}, ||f(x^(k))|| = {f_norm}, ||x(k) - x(k-1)|| = {x_norm}"
+        )
 
         x_prev = x_0.copy()
+
 
 # Funktion definieren
 f1 = "20 - 18 * x1 - 2 * x2**2"
