@@ -34,7 +34,7 @@ def newton_method(functions, initial_guess, tolerance, debug=False):
 
 functions = [
     "x1 + x2**2 - x3**2 - 13",
-    "log(x2/4) + exp(0.5 * x3) - 1",
+    "log(x2/4) + exp(0.5 * x3 - 1) - 1",
     "(x2 - 3)**2 - x3**3 + 7",
 ]
 
