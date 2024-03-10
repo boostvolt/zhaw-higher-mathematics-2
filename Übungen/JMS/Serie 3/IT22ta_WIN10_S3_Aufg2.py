@@ -33,7 +33,6 @@ def newton_method(functions, initial_guess, tolerance, debug=False):
         if f_norm < tolerance:
             break
 
-    print()
     return current_guess
 
 # Define functions
@@ -44,8 +43,9 @@ initial_guesses = [
     {"x": -200, "y": 50},
     {"x": 250, "y": 200},
     {"x": 750, "y": 900},
-    {"x": -1250, "y": 16000}
+    {"x": -1250, "y": 1600}
 ]
 
 for initial_guess in initial_guesses:
     print(newton_method(functions, initial_guess, 10 ** -5, True))
+    print()

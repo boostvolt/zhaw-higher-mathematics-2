@@ -1,42 +1,33 @@
-from sympy import Matrix, symbols, sympify
+import numpy as np
+import sympy as sy
 
-def newton_method(functions, initial_guess, tolerance, debug=False):
-    functions = [sympify(f) for f in functions]  # Convert strings to SymPy expressions
-    variables = symbols(" ".join(initial_guess.keys()))
-    current_guess = initial_guess.copy()
+def newton_damped(f, x0, eps=10**-5):
+    x, y, z = sy.symbols('x y z')
 
-    while True:
-        jacobian_matrix = Matrix(functions).jacobian(variables)
-        delta = -jacobian_matrix.inv().subs(current_guess) * Matrix(functions).subs(current_guess)
-        k = 0
-        condition_guess = current_guess.copy()
-        for i in range(10, -1, -1):
-            for j, var in enumerate(variables):
-                condition_guess[str(var)] = (current_guess[str(var)] + (delta[j] / 2**i)).evalf()
-            f_norm_condition = Matrix(functions).subs(condition_guess).norm()
+    Df = sy.lambdify([([x], [y], [z])], f.jacobian([x, y, z]))
+    fl = sy.lambdify([([x], [y], [z])], f)
+    x = [x0]
+    k = 0
 
-            if f_norm_condition > Matrix(functions).subs(current_guess).norm():
-                k = i + 1
-                break
+    while np.linalg.norm(fl(x[k]), 2) >= eps:
+        d = np.linalg.solve(Df(x[k]), -fl(x[k]))
+        i = 0
 
-        for j, var in enumerate(variables):
-            current_guess[str(var)] = (current_guess[str(var)] + (delta[j] / 2**k)).evalf()
+        while np.linalg.norm(fl(x[k] + d / (2 ** i)), 2) >= np.linalg.norm(fl(x[k]), 2):
+            i += 1
 
-        f_norm = Matrix(functions).subs(current_guess).norm()
+        x.append(x[k] + d / (2 ** i))
+        k += 1
 
-        if debug:
-            print(f"x = {current_guess}, ||f(x)|| = {f_norm.evalf()}")
+    return x
 
-        if f_norm < tolerance:
-            break
+x, y, z = sy.symbols('x y z')
+f = sy.Matrix([x + y ** 2 - z ** 2 - 13, 
+               sy.log(y / 4) + sy.exp(0.5 * z - 1) - 1, 
+               (y - 3) ** 2 - z ** 3 + 7])
+x0 = np.array([[1.5], [3], [2.5]])
 
-    return current_guess
+xn = newton_damped(f, x0)
 
-functions = [
-    "x1 + x2**2 - x3**2 - 13",
-    "log(x2/4) + exp(0.5 * x3 - 1) - 1",
-    "(x2 - 3)**2 - x3**3 + 7",
-]
-
-x_0 = {"x1": 1.5, "x2": 3, "x3": 2.5}
-newton_method(functions, x_0, 10**-5, True)
+for k, xi in enumerate(xn[1:], start=1):
+    print(f"{k} x = {xi}")
