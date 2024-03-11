@@ -75,14 +75,13 @@ def lagrange_int(x, y, x_int):
 x = np.array([1981, 1984, 1989, 1993, 1997, 2000, 2001, 2003, 2004, 2010])
 y = np.array([0.5, 8.2, 15, 22.9, 36.6, 51, 56.3, 61.8, 65, 76.7])
 
-
 x_int = np.arange(1975, 2020, 0.1)
 y_int = lagrange_int(x, y, x_int)
 
-
-z = np.polyfit(x_int - x_int.mean(), y_int, 9)
-
+z = np.polyfit(x_int - x.mean(), y_int, 9)
+# Plot Aufgabe 2
 plt.plot(x_int, y_int)
+# Plot Aufgabe 3b
 plt.plot(x_int, np.polyval(z, x_int - x.mean()))
 plt.ylim(-100, 250)
 plt.xlabel("Jahr")
@@ -92,4 +91,6 @@ plt.legend(["Funktion aus Aufgabe 2", "Funktion aus Aufgabe 3b"])
 plt.grid()
 plt.show()
 
-# In Aufgabe 2 haben wir nicht mit dem Mittelwert gerechnet
+# Bei beiden Methoden erhalten wir exakt das gleiche Resultat.
+# Daher sieht man im Plot nur die zweite Funktion, da diese die erste überdeckt.
+# Der einzige Unterschied zwischen den beiden Funktionen könnte die Laufzeit sein.
