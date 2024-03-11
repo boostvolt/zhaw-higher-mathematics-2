@@ -1,9 +1,10 @@
 import numpy as np
 
+
 def lagrange_int(x, y, x_int):
     n = x.size
     y_int = 0
-    
+
     for i in range(n):
         L = 1
 
@@ -11,7 +12,7 @@ def lagrange_int(x, y, x_int):
             if i != j:
                 L *= (x_int - x[j]) / (x[i] - x[j])
 
-        y_int += (L * y[i])
+        y_int += L * y[i]
 
     return y_int
 
