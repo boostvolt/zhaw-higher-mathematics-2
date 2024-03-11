@@ -1,4 +1,4 @@
-""" import sympy as sp
+"""import sympy as sp
 
 x1, x2, x3 = sp.symbols("x1 x2 x3")
 f1 = x1 + x2 ** 2 - x3 ** 2 - 13
@@ -35,4 +35,4 @@ def damped_newton_method(f, Df, x0, k, tolerance, max_iterations):
 
 # Lösung mit dem gedämpften Newton-Verfahren
 damped_newton_method(f, Df, x0, k, tolerance, max_iterations)
- """
+"""
