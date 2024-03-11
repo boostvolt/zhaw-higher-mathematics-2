@@ -13,9 +13,9 @@ plt.plot(x, np.polyval(z, x))
 plt.plot(x_int, y_int, marker="o", linewidth=0)
 plt.ylim(-100, 250)
 plt.xlim(1975, 2020)
-plt.xlabel("x axis")
-plt.ylabel("y axis")
-plt.title("Polynomial")
+plt.xlabel("Jahr")
+plt.ylabel("Haushalte mit Computer [%]")
+plt.title("Lagrange")
 plt.legend(["f1(x)"])
 plt.grid()
 plt.show()
@@ -34,9 +34,18 @@ x = np.arange(1975, 2020, 0.1)
 plt.plot(x, np.polyval(z, x - x_int.mean()))
 plt.plot(x_int, y_int, marker="o", linewidth=0)
 plt.ylim(-100, 250)
-plt.xlabel("x axis")
-plt.ylabel("y axis")
-plt.title("Polynomial")
+plt.xlabel("Jahr")
+plt.ylabel("Haushalte mit Computer [%]")
+plt.title("Lagrange")
 plt.legend(["f1(x)"])
 plt.grid()
 plt.show()
+
+# Punkte sind nun exakt auf dem Polynom.
+
+# Aufgabe 3 c)
+
+# Schätzwert für 2020: -infinity
+# Dieser Wert ist nicht realistisch, da allgemein ein negativer Prozentsatz nicht erreichbar ist.
+
+# Aufgabe 3 d)
