@@ -3,15 +3,13 @@ import numpy as np
 def lagrange_int(x,y,x_int):
     p = 0
     i = 0
-    while(i < np.size(x)):
+    for i in range(np.size(x)):
         j = 0
         l = 1
-        while(j < np.size(x)):
+        for j in range(np.size(x)):
             if(i != j):
-                l = l * (x_int - x[j] )/ (x[i] - x[j])
-            j = j + 1
-        p = p + l * y[i]
-        i = i + 1
+                l *= (x_int - x[j] )/ (x[i] - x[j])
+        p += l * y[i]
 
     return p
 
