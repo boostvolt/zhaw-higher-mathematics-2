@@ -54,6 +54,7 @@ plt.show()
 
 # Aufgabe 3 d)
 
+
 def lagrange_int(x, y, x_int):
     y_int = []
 
@@ -76,8 +77,7 @@ y = np.array([0.5, 8.2, 15, 22.9, 36.6, 51, 56.3, 61.8, 65, 76.7])
 
 
 x_int = np.arange(1975, 2020, 0.1)
-y_int = lagrange_int(x,y,x_int)
-
+y_int = lagrange_int(x, y, x_int)
 
 
 z = np.polyfit(x_int - x_int.mean(), y_int, 9)

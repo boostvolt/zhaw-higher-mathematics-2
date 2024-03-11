@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # Lagrange-Interpolation
 def lagrange_int(x, y, x_int):
     p = 0
@@ -12,6 +13,7 @@ def lagrange_int(x, y, x_int):
                 l_n *= (x_int - x[j]) / (x[i] - x[j])
         p += y[i] * l_n
     return p
+
 
 # Gegebene Werte
 x = np.array([0, 2500, 5000, 10000])
