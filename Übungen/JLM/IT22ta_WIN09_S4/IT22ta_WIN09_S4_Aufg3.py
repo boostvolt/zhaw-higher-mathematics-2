@@ -5,8 +5,9 @@ import numpy as np
 
 x_int = np.array([1981, 1984, 1989, 1993, 1997, 2000, 2001, 2003, 2004, 2010])
 y_int = np.array([0.5, 8.2, 15, 22.9, 36.6, 51, 56.3, 61.8, 65, 76.7])
+n_int = len(x_int)
 
-z = np.polyfit(x_int, y_int, 9)
+z = np.polyfit(x_int, y_int, n_int)
 x = np.arange(1975, 2020, 0.1)
 
 plt.plot(x, np.polyval(z, x))
@@ -27,8 +28,9 @@ plt.show()
 
 x_int = np.array([1981, 1984, 1989, 1993, 1997, 2000, 2001, 2003, 2004, 2010])
 y_int = np.array([0.5, 8.2, 15, 22.9, 36.6, 51, 56.3, 61.8, 65, 76.7])
+n_int = len(x_int)
 
-z = np.polyfit(x_int - x_int.mean(), y_int, 9)
+z = np.polyfit(x_int - x_int.mean(), y_int, n_int)
 x = np.arange(1975, 2020, 0.1)
 
 plt.plot(x, np.polyval(z, x - x_int.mean()))
