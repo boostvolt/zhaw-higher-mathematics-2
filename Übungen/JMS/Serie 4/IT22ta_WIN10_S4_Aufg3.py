@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def task_a(x, y):
@@ -92,3 +92,5 @@ def task_d(x, y):
 
 
 task_d(x, y)
+
+# Die Lagrange Interpolation geht genau durch alle Punkte wie die Polynominterpolation
