@@ -93,4 +93,5 @@ def task_d(x, y):
 
 task_d(x, y)
 
-# Die Lagrange Interpolation geht genau durch alle Punkte wie die Polynominterpolation
+# In beiden Methoden erzielen wir genau das gleiche Ergebnis.
+# Entsprechend ist im Plot auch nur eine Funktion sichtbar, da beide Funktionen exakt übereinstimmen.
