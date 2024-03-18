@@ -44,7 +44,6 @@ def IT22ta_WIN09_S5_Aufg2(x, y, xx):
                     + c[j] * ((xx[i] - x[j]) ** 2)
                     + d[j] * ((xx[i] - x[j]) ** 3)
                 )
-                print(yy[i])
                 break
     return yy
 
