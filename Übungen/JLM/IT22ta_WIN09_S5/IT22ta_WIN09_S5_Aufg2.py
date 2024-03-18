@@ -5,7 +5,7 @@ import numpy as np
 # Lagrange-Interpolation
 def IT22ta_WIN09_S5_Aufg2(x, y, xx):
     a = y
-    h = np.arange(x.size - 1)
+    h = np.zeros(x.size - 1)
     c = np.zeros_like(x)
     A = np.zeros((x.size - 2, x.size - 2))
     z = np.zeros(c.size - 2)
@@ -33,8 +33,10 @@ def IT22ta_WIN09_S5_Aufg2(x, y, xx):
     for i in range(0, x.size - 1):
         d[i] = (1 / (3 * h[i])) * (c[i + 1] - c[i])
 
-    for i in range(xx.size):  # Durchlaufen der Werte in xx
-        for j in range(x.size - 1):  # Durchlaufen der Stützstellen
+    # Durchlaufen der Werte in xx
+    for i in range(xx.size):
+        # Durchlaufen der Stützstellen
+        for j in range(x.size - 1):
             if x[j] <= xx[i] <= x[j + 1]:
                 yy[i] = (
                     a[j]
@@ -47,20 +49,19 @@ def IT22ta_WIN09_S5_Aufg2(x, y, xx):
     return yy
 
 
-# Gegebene Werte
-x = np.array([4.0, 6.0, 8.0, 10.0])
-y = np.array([6.0, 3.0, 9.0, 0.0])
-xx = np.arange(4.0, 10.1, 0.1)
+# Wird nur ausgeführt wenn explizit dieses Script ausgeführt wird.
+if __name__ == "__main__":
+    # Gegebene Werte
+    x = np.array([4.0, 6.0, 8.0, 10.0])
+    y = np.array([6.0, 3.0, 9.0, 0.0])
+    xx = np.arange(4.0, 10.1, 0.1)
+    yy = IT22ta_WIN09_S5_Aufg2(x, y, xx)
 
-yy = IT22ta_WIN09_S5_Aufg2(x, y, xx)
-
-plt.plot(xx, yy)
-plt.plot(x, y, marker="o", linewidth=0)
-# plt.ylim(-100, 250)
-# plt.xlim(1975, 2020)
-plt.xlabel("Jahr")
-plt.ylabel("Haushalte mit Computer [%]")
-plt.title("Aufgabe 3 a - Lagrange")
-plt.legend(["f1(x)"])
-plt.grid()
-plt.show()
+    plt.plot(xx, yy)
+    plt.plot(x, y, marker="o", linewidth=0)
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.title("Serie 5 - Aufgabe 2")
+    plt.legend(["S(x)"])
+    plt.grid()
+    plt.show()
