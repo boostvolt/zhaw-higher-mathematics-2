@@ -5,8 +5,6 @@ x = np.array([4, 6, 8, 10])
 y = np.array([6, 3, 9, 0])
 xx = np.arange(4, 10, 0.1)
 
-4 5 6 7 8 9 
-
 def spline(x, y, xx):
     if (x.size != y.size):
         return "x and y must have the same size"
@@ -25,10 +23,7 @@ def spline(x, y, xx):
 
     yy = np.zeros(xx.shape)
     for i in range(x.size - 1):
-        print((xx >= x[i]) & (xx <= x[i + 1]))
-        idx, = np.nonzero((xx >= x[i]) & (xx <= x[i + 1])) 
-        print(idx)
-        print(idx,)
+        idx = np.nonzero((xx >= x[i]) & (xx <= x[i + 1])) 
         dx = xx[idx] - x[i]
         yy[idx] = a[i] + (b[i] * dx) + (c[i] * (dx ** 2)) + (d[i] * (dx ** 3))
              
