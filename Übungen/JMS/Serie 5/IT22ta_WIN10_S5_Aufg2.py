@@ -1,3 +1,4 @@
+from matplotlib import pyplot as plt
 import numpy as np
 
 x = np.array([4, 6, 8, 10])
@@ -28,5 +29,9 @@ def spline(x, y, xx):
              
     return yy
 
-print(spline(x, y, xx))
+yy = spline(x, y, xx)
+plt.scatter(x, y)
+plt.plot(xx, yy)
+plt.grid()
+plt.show()
 
