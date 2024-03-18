@@ -30,6 +30,7 @@ def spline(x, y, xx):
     return yy
 
 yy = spline(x, y, xx)
+print(yy)
 plt.scatter(x, y)
 plt.plot(xx, yy)
 plt.grid()
