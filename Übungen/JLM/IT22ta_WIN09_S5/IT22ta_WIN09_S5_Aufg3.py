@@ -5,28 +5,13 @@ from scipy.interpolate import CubicSpline
 
 # Aufgabe 3a
 
-t = np.array([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010])
-p = np.array(
-    [
-        75.995,
-        91.972,
-        105.711,
-        123.203,
-        131.669,
-        150.697,
-        179.323,
-        203.212,
-        206.505,
-        249.633,
-        281.422,
-        308.745,
-    ]
-)
+x = np.array([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010])
+y = np.array([75.995, 91.972, 105.711, 123.203, 131.669, 150.697, 179.323, 203.212, 226.505, 249.633, 308.745])
 
 xx = np.arange(1900, 2011, 1)
-yy = IT22ta_WIN09_S5_Aufg2(t, p, xx)
+yy = IT22ta_WIN09_S5_Aufg2(x, y, xx)
 plt.plot(xx, yy)
-plt.plot(t, p, marker="o", linewidth=0)
+plt.plot(x, y, marker="o", linewidth=0)
 plt.xlabel("Jahr")
 plt.ylabel("Bevölkerungsanzahl der USA [in Mio.]")
 plt.title("Aufgabe 3a - Bevölkerungsanzahl der USA")
@@ -36,23 +21,6 @@ plt.show()
 
 # Aufgabe 3b
 
-x = np.array([1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010])
-y = np.array(
-    [
-        75.995,
-        91.972,
-        105.711,
-        123.203,
-        131.669,
-        150.697,
-        179.323,
-        203.212,
-        206.505,
-        249.633,
-        281.422,
-        308.745,
-    ]
-)
 poly = CubicSpline(x, y)
 
 x_int = np.arange(1900, 2020, 0.1)
