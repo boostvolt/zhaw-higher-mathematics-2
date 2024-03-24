@@ -23,5 +23,18 @@ def taskB():
 taskB()
 
 ######################
-def taskB():
-    print("")
+#Die Zeitreihe wird auf das Jahr 0 geändert, um numerische Stabilität bei der Berechnung von Polynomen zu verbessern, insbesondere bei hohen Graden.
+def taskC():
+    xnew = x - 1900
+    coeffs = np.polyfit(xnew, y, 11)
+    xvalues = np.linspace(xnew[0], xnew[-1], 500)
+    plt.figure(figsize=(8, 4))
+    plt.plot(xnew, y, 'o', label='Datenpunkte')
+    plt.plot(xvalues, np.polyval(coeffs, xvalues), '-', label='Polynom 11. Grades')
+    plt.legend()
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Kubische Spline-Interpolation')
+    plt.show()
+
+taskC()
