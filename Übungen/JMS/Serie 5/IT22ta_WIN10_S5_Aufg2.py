@@ -1,38 +1,66 @@
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
-x = np.array([4, 6, 8, 10])
-y = np.array([6, 3, 9, 0])
-xx = np.arange(4, 10, 0.1)
 
-def spline(x, y, xx):
-    if (x.size != y.size):
-        return "x and y must have the same size"
+# Lagrange-Interpolation
+def IT22ta_WIN10_S5_Aufg2(x, y, xx):
+    a = y
+    h = np.zeros(x.size - 1)
+    c = np.zeros_like(x)
+    A = np.zeros((x.size - 2, x.size - 2))
+    z = np.zeros(c.size - 2)
+    b = np.zeros(x.size - 1)
+    d = np.zeros(x.size - 1)
+    yy = np.zeros(xx.size)
+    print(yy)
+    for i in range(0, h.size):
+        h[i] = x[i + 1] - x[i]
 
-    a = np.copy(y)
-    h = x[1:] - x[:-1]
-    c = np.zeros(x.shape)
+    for i in range(0, x.size - 2):
+        A[i, i] = 2 * (h[i] + h[i + 1])
+        if i + 1 < x.size - 2:
+            A[i + 1, i] = h[i + 1]
+            A[i, i + 1] = h[i + 1]
+        z[i] = (3 * ((y[i + 2] - y[i + 1]) / h[i + 1])) - (
+            3 * ((y[i + 1] - y[i]) / h[i])
+        )
 
-    A = np.diag(2 * (h[:-1] + h[1:])) + np.diag(h[1:-1], 1) + np.diag(h[1:-1], -1)
-    z = 3 * (((y[2:] - y[1:-1]) / h[1:-1]) - ((y[1:-1] - y[:-2]) / h[:-2]))
-    c[1:-1] = (np.linalg.solve(A, z))
-    
-    b = ((y[1:] - y[:-1]) / h) - (c[1:] + 2 * c[:-1]) * (h/3)
+    c[1:-1] = np.linalg.solve(A, z)
 
-    d = (c[1:] - c[:-1]) / (h * 3)
+    for i in range(0, x.size - 1):
+        b[i] = ((y[i + 1] - y[i]) / h[i]) - ((h[i]) / 3 * (c[i + 1] + 2 * c[i]))
 
-    yy = np.zeros(xx.shape)
-    for i in range(x.size - 1):
-        idx = np.nonzero((xx >= x[i]) & (xx <= x[i + 1])) 
-        dx = xx[idx] - x[i]
-        yy[idx] = a[i] + (b[i] * dx) + (c[i] * (dx ** 2)) + (d[i] * (dx ** 3))
-             
+    for i in range(0, x.size - 1):
+        d[i] = (1 / (3 * h[i])) * (c[i + 1] - c[i])
+
+    # Durchlaufen der Werte in xx
+    for i in range(xx.size):
+        # Durchlaufen der Stützstellen
+        for j in range(x.size - 1):
+            if x[j] <= xx[i] <= x[j + 1]:
+                yy[i] = (
+                    a[j]
+                    + b[j] * (xx[i] - x[j])
+                    + c[j] * ((xx[i] - x[j]) ** 2)
+                    + d[j] * ((xx[i] - x[j]) ** 3)
+                )
+                break
     return yy
 
-yy = spline(x, y, xx)
-print(yy)
-plt.scatter(x, y)
-plt.plot(xx, yy)
-plt.grid()
-plt.show()
 
+# Wird nur ausgeführt wenn explizit dieses Script ausgeführt wird.
+if __name__ == "__main__":
+    # Gegebene Werte
+    x = np.array([4.0, 6.0, 8.0, 10.0])
+    y = np.array([6.0, 3.0, 9.0, 0.0])
+    xx = np.arange(4.0, 10.1, 0.1)
+    yy = IT22ta_WIN10_S5_Aufg2(x, y, xx)
+
+    plt.plot(xx, yy)
+    plt.plot(x, y, marker="o", linewidth=0)
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.title("Serie 5 - Aufgabe 2")
+    plt.legend(["S(x)"])
+    plt.grid()
+    plt.show()
