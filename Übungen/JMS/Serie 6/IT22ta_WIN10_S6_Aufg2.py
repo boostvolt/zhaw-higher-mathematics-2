@@ -1,7 +1,10 @@
-import sympy as sp
 import numpy as np
+import sympy as sp
+from matplotlib import pyplot as plt
 
-x = np.array([[33.00, 53.00, 3.32, 3.42, 29.00],
+data = np.array(
+    [
+        [33.00, 53.00, 3.32, 3.42, 29.00],
         [31.00, 36.00, 3.10, 3.26, 24.00],
         [33.00, 51.00, 3.18, 3.18, 26.00],
         [37.00, 51.00, 3.39, 3.08, 22.00],
@@ -32,24 +35,38 @@ x = np.array([[33.00, 53.00, 3.32, 3.42, 29.00],
         [59.00, 62.00, 4.39, 4.53, 34.00],
         [37.00, 35.00, 2.75, 2.64, 19.00],
         [35.00, 35.00, 2.59, 2.59, 16.00],
-        [37.00, 37.00, 2.73, 2.59, 22.00]])
+        [37.00, 37.00, 2.73, 2.59, 22.00],
+    ]
+)
 
-y = np.array([999.9, 999.7, 998.2, 995.7, 992.2, 988.1, 983.2, 977.8, 971.8, 965.3, 958.4 ])
-t_tank, t_beninz, p_tank, p_benzin  = sp.symbols("t_tank t_beninz p_tank p_benzin",)
+y = data[:, -1]
+
+t_tank, t_beninz, p_tank, p_benzin = sp.symbols(
+    "t_tank t_beninz p_tank p_benzin",
+)
 f = np.array([t_tank, t_beninz, p_tank, p_benzin])
 
-A = np.ones(x.shape)
-
-# for i in range(x.shape[1]):
-#     A[][] = f[i].subs(f(i), (x[:,i:i+1])
+A = np.ones((data.shape[0], data.shape[1] - 1))
 
 for i in range(0, 32, 1):
-    for j in range(0, 4, 1): 
-        A[i][j] = sp.sympify(f[j]).subs(f[j], x[j][i])
+    for j in range(0, 4, 1):
+        A[i][j] = sp.sympify(f[j]).subs(f[j], data[i][j])
+
 
 def a_qr(A, y):
-    Q, R = np.linalg.qr(A);
+    Q, R = np.linalg.qr(A)
     return np.linalg.solve(R, Q.T @ y)
 
-print(a_qr(A, y))
 
+x = np.zeros_like(y)
+coefficients = a_qr(A, y)
+for i in range(0, 32, 1):
+    result = 0
+    for j in range(0, 4, 1):
+        result += coefficients[j] * data[i][j]
+
+    x[i] = result
+
+
+plt.scatter(x, y)
+plt.show()
