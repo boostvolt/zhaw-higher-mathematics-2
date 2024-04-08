@@ -16,9 +16,13 @@ x = np.array(
         6370000,
     ]
 )
+
 ro = np.array(
     [13000, 12900, 12700, 12000, 11650, 10600, 9900, 5500, 5300, 4750, 4500, 3300]
 )
+
+y = ro * 4 * np.pi * (x**2)
+m_ref = 5.976 * 10**24
 
 
 def IT22ta_WIN09_S8_Aufg3a(x, y):
@@ -28,11 +32,11 @@ def IT22ta_WIN09_S8_Aufg3a(x, y):
     return Tf_neq
 
 
-y = ro * 4 * np.pi * (x**2)
-m_ref = 5.976 * 10**24
+# Erdmasse berechnen
 m = IT22ta_WIN09_S8_Aufg3a(x, y)
-print(m)
 abs_error = np.abs(m - m_ref)
-print(abs_error)
 rel_error = abs_error / m_ref
-print(rel_error)
+
+print(f"Erdmasse: {m}")
+print(f"Absoluter Fehler: {abs_error}")
+print(f"Relativer Fehler: {rel_error}")
