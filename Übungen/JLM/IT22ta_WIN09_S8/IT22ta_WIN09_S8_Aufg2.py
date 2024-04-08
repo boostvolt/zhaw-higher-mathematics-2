@@ -5,7 +5,7 @@ a = 20
 b = 5
 h = -3
 exact_result = sp.integrate.quad(lambda v: 10 / (-v * (v**0.5)), 20, 5)
-print(f"Exaktes Resultat: {exact_result}")
+print(f"Exaktes Resultat: {exact_result[0]}")
 
 
 def f(v):
