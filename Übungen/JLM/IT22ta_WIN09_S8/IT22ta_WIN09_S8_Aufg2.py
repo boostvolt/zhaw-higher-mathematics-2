@@ -15,7 +15,7 @@ def f(v):
 sum = 0
 
 for i in range(0,5):
-    sum += f(a + i*h - h/2)
+    sum += f(a + i*h + h/2)
 
 Rf = h * sum
 print(Rf)
