@@ -1,5 +1,6 @@
 import numpy as np
 import sympy as sp
+from matplotlib import pyplot as plt
 
 data = np.array(
     [
@@ -24,6 +25,13 @@ data = np.array(
 x = data[:, 0]
 y = data[:, 1]
 log_y = np.log10(y)
+
+lambda_fit = np.polyfit(x - 1970, log_y, 1)
+
+plt.semilogy(x, y, "o", label="Daten")
+plt.semilogy(x, 10 ** (lambda_fit[0] * (x - 1970) + lambda_fit[1]))
+plt.show()
+
 
 t = sp.symbols("t")
 f = np.array([1, (t - 1970)])
