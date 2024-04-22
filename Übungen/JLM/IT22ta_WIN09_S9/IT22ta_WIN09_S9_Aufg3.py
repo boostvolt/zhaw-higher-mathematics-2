@@ -24,6 +24,8 @@ def rombergFunction(f, a, b, m):
             R[i][j] = (R[i][j - 1] + (R[i][j - 1] - R[i - 1][j - 1]) / (4 ** j - 1)).evalf()
     return R
 
+
 # Print matrix in a readable way and round to 4 decimal places
-for row in rombergFunction(f, a, b, m):
-    print([round(elem, acc) for elem in row])
+if __name__ == "__main__":
+    for row in rombergFunction(f, a, b, m):
+        print([round(elem, acc) for elem in row])
