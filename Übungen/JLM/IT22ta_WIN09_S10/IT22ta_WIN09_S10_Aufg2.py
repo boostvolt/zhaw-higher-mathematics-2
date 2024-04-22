@@ -24,7 +24,7 @@ h_vals = [f_h.subs(x, val) for val in x_vals]  # Funktionswerte für alle x-Wert
 
 # Ableitung printen und benennen
 print("v(x) =", f_v)
-print("v'(x) =", f_h)
+print("h(x) =", f_h)
 # Plotten der Funktion f(x), f'(x) und f''(x)
 plt.plot(x_vals, v_vals)
 plt.plot(x_vals, h_vals)
