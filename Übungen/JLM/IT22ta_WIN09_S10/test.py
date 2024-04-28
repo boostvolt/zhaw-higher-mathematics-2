@@ -1,73 +1,49 @@
-import numpy as np
+import sympy as sp
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Gegebene Konstanten
-vrel = 2600  # relative Ausströmgeschwindigkeit des Treibstoffs in m/s
-mA = 3000000  # Anfangsmasse der Rakete in kg
-mE = 800000  # Masse der Rakete am Ende der Brennphase in kg
-tE = 190  # Dauer der Brennphase in s
-g = 9.81  # Fallbeschleunigung in m/s^2
-mu = (mA-mE) / tE
+# Definiere die Funktion
+x = sp.symbols('x')     # Symbol x
+g = 9.81                # Erdbeschleunigung
+ma = 300000             # Masse der Rakete
+te = 190                # Brenndauer
+me = 80000              # Masse der Rakete ohne Treibstoff
+mu = (ma - me) / te     # Masse des Treibstoffs pro Sekunde
+f_a = 2600 * mu / (ma - mu * x) - g     # Funktion f(x)
+f_v = -9.81 * x - 2600. * sp.log(259.091 - x) + 14450     # Funktion f'(x)
+f_h = (17050 - 4.905 * x) * x + (673637. - 2600 *x) * sp.log(259.091 - x) - 3742000     # Funktion f''(x)
+a = 0                   # Startwert
+b = 190                 # Endwert
+n = 190                 # Anzahl der x-Werte
+h = (b - a) / n         # Schrittweite
 
-# Funktion für die Beschleunigung der Rakete
-def acceleration(t):
-    return vrel * mu / (mA - mu * t) - g
+exact_result_v = 10
+exact_result_h = 10
+x_vals = np.linspace(a, b, n)  # x-Werte
+a_vals = [f_a.subs(x, val) for val in x_vals]  # Funktionswerte a für alle x-Werte
+v_vals = [f_v.subs(x, val) for val in x_vals]  # Funktionswerte v für alle x-Werte
+h_vals = [f_h.subs(x, val) for val in x_vals]  # Funktionswerte h für alle x-Werte
 
-# Trapezregel zur numerischen Integration
-def trapezoidal_rule(func, a, b, n):
-    h = (b - a) / n
-    integral = 0.5 * (func(a) + func(b))
-    for i in range(1, n):
-        integral += func(a + i * h)
-    integral *= h
-    return integral
+# Plotten der Funktionen
+plt.plot(x_vals, a_vals)
+plt.plot(x_vals, v_vals)
+plt.plot(x_vals, h_vals)
 
-# Funktion zur Berechnung der Geschwindigkeit und Höhe
-def calculate_velocity_and_height():
-    # Zeitpunkte
-    t_values = np.linspace(0, tE, 1000)
-
-    # Beschleunigung und Geschwindigkeit berechnen
-    acceleration_values = np.array([acceleration(t) for t in t_values])
-    velocity_values = np.array([trapezoidal_rule(acceleration, 0, t, 1000) for t in t_values])
-
-    # Geschwindigkeit in m/s und Höhe in m berechnen
-    height_values = np.array([trapezoidal_rule(lambda t: velocity_values[i], 0, t, 1000) for i, t in enumerate(t_values)])
-
-    return t_values, velocity_values, height_values
-
-# Berechnung von t, v(t) und h(t)
-t, v, h = calculate_velocity_and_height()
-
-# Plotten von v(t) und h(t)
-plt.figure(figsize=(15, 5))
-
-plt.subplot(1, 3, 1)
-plt.plot(t, acceleration(t))
-plt.title('Beschleunigung der Rakete')
-plt.xlabel('Zeit (s)')
-plt.ylabel('Beschleunigung (m/s^2)')
-
-plt.subplot(1, 3, 2)
-plt.plot(t, v)
-plt.title('Geschwindigkeit der Rakete')
-plt.xlabel('Zeit (s)')
-plt.ylabel('Geschwindigkeit (m/s)')
-
-plt.subplot(1, 3, 3)
-plt.plot(t, h)
-plt.title('Höhe der Rakete')
-plt.xlabel('Zeit (s)')
-plt.ylabel('Höhe (m)')
-
-plt.tight_layout()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend(['a(x)', "v(x)", "h(x"])
+plt.title("Geschwindigkeit und Höhe der Rakete über der Zeit")
 plt.show()
 
-# Geschwindigkeit und Höhe am Ende der ersten Brennphase
-v_end = v[-1]
-h_end = h[-1]
-a_end = acceleration(tE)
 
-print("Geschwindigkeit am Ende der ersten Brennphase:", v_end, "m/s")
-print("Höhe am Ende der ersten Brennphase:", h_end, "m")
-print("Beschleunigung am Ende der ersten Brennphase:", a_end, "m/s^2")
+def IT22ta_WIN09_S8_Aufg3a(x, y):
+    Tf_neq = 0
+    for i in range(len(x) - 1):
+        Tf_neq += ((y[i] + y[i + 1]) / 2) * (x[i + 1] - x[i])
+    return Tf_neq
+
+# v(t) berechnen
+print(IT22ta_WIN09_S8_Aufg3a(x_vals, a_vals))
+
+# h(t) berechnen
+#print(IT22ta_WIN09_S8_Aufg3a(x_vals, h_vals))
