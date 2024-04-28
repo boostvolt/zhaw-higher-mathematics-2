@@ -40,15 +40,21 @@ def calculate_velocity_and_height():
 t, v, h = calculate_velocity_and_height()
 
 # Plotten von v(t) und h(t)
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(15, 5))
 
-plt.subplot(1, 2, 1)
+plt.subplot(1, 3, 1)
+plt.plot(t, acceleration(t))
+plt.title('Beschleunigung der Rakete')
+plt.xlabel('Zeit (s)')
+plt.ylabel('Beschleunigung (m/s^2)')
+
+plt.subplot(1, 3, 2)
 plt.plot(t, v)
 plt.title('Geschwindigkeit der Rakete')
 plt.xlabel('Zeit (s)')
 plt.ylabel('Geschwindigkeit (m/s)')
 
-plt.subplot(1, 2, 2)
+plt.subplot(1, 3, 3)
 plt.plot(t, h)
 plt.title('Höhe der Rakete')
 plt.xlabel('Zeit (s)')
