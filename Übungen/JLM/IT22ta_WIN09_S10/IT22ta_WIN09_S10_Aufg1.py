@@ -1,5 +1,5 @@
 from sympy import *
-from Übungen.JLM.IT22ta_WIN09_S9.IT22ta_WIN09_S9_Aufg3 import rombergFunction
+from IT22ta_WIN09_S9_Aufg3 import rombergFunction
 
 # Define the function
 x = symbols('x')  # Symbol x
