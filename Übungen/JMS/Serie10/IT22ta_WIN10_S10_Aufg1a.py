@@ -38,7 +38,7 @@ romberg_extrapolation(f, a, b, m)
 
 a = 100
 b = 0
-m = 4
+m = 5
 
 f = lambda v: (97000 * v) / ((-5.0) * (v**2) - 570000.0)
 
