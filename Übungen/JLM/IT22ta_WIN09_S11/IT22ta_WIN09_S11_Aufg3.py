@@ -1,13 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from IT22ta_WIN09_S11_Aufg1 import richtungsfeld
-
 
 def f(x, y):
     return x ** 2 / y
 
 
 def anfangswertproblem(f, a, b, n, y0):
+    h = (b - a) / n
     x = np.zeros(n + 1)
     y_euler = np.zeros(n + 1)
     y_mittelpunkt = np.zeros(n + 1)
