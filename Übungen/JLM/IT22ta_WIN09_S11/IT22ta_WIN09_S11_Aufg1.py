@@ -1,12 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-xmin = 0
-xmax = 5
-ymin = 0
-ymax = 3
-hx = 0.1
-hy = 0.1
+
 
 def richtungsfeld(f, xmin, xmax, ymin, ymax, hx, hy):
     # Erzeuge das Punkteraster in der xy-Ebene
@@ -34,11 +29,17 @@ def richtungsfeld(f, xmin, xmax, ymin, ymax, hx, hy):
     plt.grid(True)
     plt.show()
 
+if __name__ == "__main__":
+    xmin = 0
+    xmax = 5
+    ymin = 0
+    ymax = 3
+    hx = 0.1
+    hy = 0.1
+    # Beispiel Funktion f(x, y) = x + y
+    def f(x, y):
+        return x**2 + 0.1*y
 
-# Beispiel Funktion f(x, y) = x + y
-def f(x, y):
-    return x**2 + 0.1*y
 
-
-# Test der Funktion
-richtungsfeld(f, xmin, xmax, ymin, ymax, hx, hy)
+    # Test der Funktion
+    richtungsfeld(f, xmin, xmax, ymin, ymax, hx, hy)
