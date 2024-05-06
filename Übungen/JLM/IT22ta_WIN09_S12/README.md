@@ -1,0 +1,1 @@
+## Die Aufgaben 1 & 2 wurden mit GPT generiert!
