@@ -1,5 +1,4 @@
 import numpy as np
-import scipy.integrate
 import sympy as sy
 
 x, h = sy.symbols('x h')
