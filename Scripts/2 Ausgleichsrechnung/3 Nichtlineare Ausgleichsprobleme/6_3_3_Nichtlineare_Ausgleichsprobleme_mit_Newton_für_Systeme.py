@@ -1,6 +1,5 @@
 import numpy as np
 import sympy as sy
-import matplotlib.pyplot as plt
 
 a1, a2 = sy.symbols('a1, a2')  # Gesuchte Parameter 𝛌1 .. 𝛌m
 a = sy.Matrix([a1, a2])
